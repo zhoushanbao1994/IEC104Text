@@ -26,6 +26,7 @@
 #pragma pack(push,1)
 
 // 32-bit string state and change data unit
+// 32位字符串状态和更改数据单元
 struct iec_stcd {
     union {
         unsigned short  st;
@@ -72,6 +73,7 @@ struct iec_stcd {
 };
 
 // CP56Time2a timestamp
+// CP56Time2a时间戳
 struct cp56time2a {
     unsigned short msec;
     unsigned char min :6;
@@ -90,17 +92,19 @@ struct cp56time2a {
 
 typedef struct cp56time2a cp56time2a;
 
+// 限定词
 struct iec_qualif
 {
     unsigned char var :2;
     unsigned char res :2;
-    unsigned char bl :1; // blocked/not blocked
-    unsigned char sb :1; // substituted/not substituted
-    unsigned char nt :1; // not topical/topical
-    unsigned char iv :1; // valid/invalid
+    unsigned char bl :1; // blocked/not blocked             被阻止/未被阻止
+    unsigned char sb :1; // substituted/not substituted     替换/不替换
+    unsigned char nt :1; // not topical/topical             不是主题/主题
+    unsigned char iv :1; // valid/invalid                   有效/无效
 };
 
 // M_SP_NA_1 - single point information with quality description
+// M_SP_NA_1 - 具有质量描述的单点信息
 struct iec_type1 {
     unsigned char sp :1; // single point information
     unsigned char res :3;
@@ -111,6 +115,7 @@ struct iec_type1 {
 };
 
 // M_DP_NA_1 - double point information with quality description
+// M_DP_NA_1 - 具有质量描述的双点信息
 struct iec_type3 {
     unsigned char dp :2; // double point information
     unsigned char res :2;
@@ -121,6 +126,7 @@ struct iec_type3 {
 };
 
 // M_ST_NA_1 - step position
+// M_ST_NA_1 - 步骤位置
 struct iec_type5 {
     unsigned char mv  :7; // value
     unsigned char t :1; // transient flag
@@ -133,6 +139,7 @@ struct iec_type5 {
 };
 
 // M_BO_NA_1 - state and change information bit string
+// M_BO_NA_1 - 状态和更改信息位字符串
 struct iec_type7 {
     struct iec_stcd stcd;
     unsigned char ov :1; // overflow/no overflow
@@ -144,6 +151,7 @@ struct iec_type7 {
 };
 
 // M_ME_NA_1 - normalized measured value
+// M_ME_NA_1 - 标准化测量值
 struct iec_type9 {
     unsigned short mv; // normalized value
     unsigned char ov :1; // overflow/no overflow
@@ -155,6 +163,7 @@ struct iec_type9 {
 };
 
 // M_ME_NB_1 - scaled measured value
+// M_ME_NB_1 - 标定的测量值
 struct iec_type11 {
     unsigned short mv; // scaled value
     unsigned char ov :1; // overflow/no overflow
@@ -166,6 +175,7 @@ struct iec_type11 {
 };
 
 // M_ME_NC_1 - short floating point measured value
+// M_ME_NC_1 - 短浮点测量值
 struct iec_type13 {
     float mv;
     unsigned char ov :1; // overflow/no overflow
@@ -177,6 +187,7 @@ struct iec_type13 {
 };
 
 // M_SP_TB_1 - single point information with quality description and time tag
+// M_SP_TB_1 - 具有质量描述和时间标记的单点信息
 struct iec_type30 {
     unsigned char sp :1; // single point information
     unsigned char res :3;
@@ -188,6 +199,7 @@ struct iec_type30 {
 };
 
 // M_DP_TB_1 - double point information with quality description and time tag
+// M_DP_TB_1 - 具有质量描述和时间标签的双点信息
 struct iec_type31 {
     unsigned char dp :2; // double point information
     unsigned char res :2;
@@ -199,6 +211,7 @@ struct iec_type31 {
 };
 
 // M_ST_TB_1 - step position with time tag
+// M_ST_TB_1 - 带时间标记的步位置
 struct iec_type32 {
     unsigned char mv  :7; // value
     unsigned char t :1; // transient flag
@@ -212,6 +225,7 @@ struct iec_type32 {
 };
 
 // M_BO_TB_1 - state and change information bit string and time tag
+// M_BO_TB_1 - 状态和更改信息位字符串和时间标记
 struct iec_type33 {
     struct iec_stcd stcd;
     unsigned char ov :1; // overflow/no overflow
@@ -224,6 +238,7 @@ struct iec_type33 {
 };
 
 // M_ME_TD_1 - scaled measured value with time tag
+// M_ME_TD_1 - 带时间标签的比例测量值
 struct iec_type34 {
     unsigned short mv; // scaled value
     unsigned char ov :1; // overflow/no overflow
@@ -236,6 +251,7 @@ struct iec_type34 {
 };
 
 // M_ME_TE_1 - scaled measured value with time tag
+// M_ME_TE_1 - 带有时间标签的比例测量值
 struct iec_type35 {
     unsigned short mv; // scaled value
     unsigned char ov :1; // overflow/no overflow
@@ -248,6 +264,7 @@ struct iec_type35 {
 };
 
 // M_ME_TF_1 - short floating point measurement value and time tag
+// M_ME_TF_1 - 时间标记的短浮点测量值
 struct iec_type36 {
     float  mv;
     unsigned char ov :1; // overflow/no overflow
@@ -259,7 +276,7 @@ struct iec_type36 {
     cp56time2a time;
 };
 
-// M_IT_TB_1
+// M_IT_TB_1	= 37 ,  //带 CP56Time2a 时标的累计量
 struct iec_type37 {
     unsigned long int bcr;
     unsigned char sq :5;
@@ -269,6 +286,7 @@ struct iec_type37 {
     cp56time2a time;
 };
 
+// C_SC_NA_1	= 45	,	//	单点遥控
 struct iec_type45 {
     unsigned char scs :1; // single command state
     unsigned char res :1; // must be zero
@@ -276,18 +294,21 @@ struct iec_type45 {
     unsigned char se :1; // select=1 / execute=0
 };
 
+// C_DC_NA_1	= 46	,	//	双点遥控
 struct iec_type46 {
     unsigned char dcs :2; // double command state
     unsigned char qu :5;
     unsigned char se :1; // select=1 / execute=0
 };
 
+// C_RC_NA_1	= 47	,	//	升降命令
 struct iec_type47 {
     unsigned char rcs :2; // regulating step command
     unsigned char qu :5;
     unsigned char se :1; // select=1 / execute=0
 };
 
+// C_SC_TA_1 	= 58	,	//	带长时标单点遥控(CP56)
 struct iec_type58 {
     unsigned char scs :1; // single command state
     unsigned char res :1; // must be zero
@@ -296,6 +317,7 @@ struct iec_type58 {
     cp56time2a time;
 };
 
+// C_DC_TA_1 	= 59	,	//	带长时标双点遥控(CP56)
 struct iec_type59 {
     unsigned char dcs :2; // double command state
     unsigned char qu :5;
@@ -303,6 +325,7 @@ struct iec_type59 {
     cp56time2a time;
 };
 
+// C_RC_TA_1	= 60	,	//	带长时标升降命令(CP56)
 struct iec_type60 {
     unsigned char rcs :2; // regulating step command
     unsigned char qu :5;
@@ -310,19 +333,23 @@ struct iec_type60 {
     cp56time2a time;
 };
 
+// C_IC_NA_1 	= 100	,	//	总召唤
 struct iec_type100 {
     unsigned char qoi; // pointer of interrogation
 };
 
+// C_CI_NA_1 	= 101	,	//	电能脉冲召唤命令
 struct iec_type101 {
     unsigned char rqt :6; // request
     unsigned char frz :2; // freeze
 };
 
+// C_CS_NA_1 	= 103	,	//	时钟同步命令
 struct iec_type103 {
     cp56time2a time;
 };
 
+// C_TS_TA_1 	= 107	,	//	带长时标测试命令
 struct iec_type107 {
     unsigned short ioa16; // object address bytes 1,2
     unsigned char ioa8; // object address byte 3
@@ -331,15 +358,16 @@ struct iec_type107 {
 };
 
 // Data unit identifier block - ASDU header
+// 数据单元标识符块 - ASDU标头
 struct iec_unit_id {
-    unsigned char type;  // type identification
-    unsigned char num :7; // number of information objects
-    unsigned char sq :1; // sequenced/not sequenced address
-    unsigned char cause :6; // cause of transmission
-    unsigned char pn :1; // positive/negative app. confirmation
-    unsigned char t :1; // test
-    unsigned char oa; // originator addres
-    unsigned short ca; // common address of ASDU
+    unsigned char type;     // type identification                  类型识别
+    unsigned char num :7;   // number of information objects        信息对象的数量
+    unsigned char sq :1;    // sequenced/not sequenced address      有序/无序地址
+    unsigned char cause :6; // cause of transmission                传播原因
+    unsigned char pn :1;    // positive/negative app. confirmation  正面/负面应用。 确认
+    unsigned char t :1;     // test                                 测试
+    unsigned char oa;       // originator addres                    发起者地址
+    unsigned short ca;      // common address of ASDU               ASDU的公用地址
 };
 
 struct iec_apdu {
